@@ -1221,7 +1221,7 @@ MDScreen:
                 name: 'toolbar'
                 id: toolbar                
                 MDTopAppBar:
-                    title: "Toolbar"
+                    title: "Toolbar. Click any icons"
                     elevation: 4
                     pos_hint: {"top": 1}
                     id: MDTopAppBarToolBar

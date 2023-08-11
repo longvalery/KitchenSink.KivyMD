@@ -22,7 +22,7 @@ python -m venv venv
 
 ## Step 4. Run python environment
 
-For Windows: call .\venv\Scrips\activate.bat
+For Windows: call .\venv\Scripts\activate.bat
 
 For Linux:   source ./venv/bin/activate
 
