@@ -46,7 +46,12 @@ main_widget_kv = """
 #:import toast kivymd.toast 
 
 
-
+<MDSmartTileForGrid@MDSmartTile>
+    radius: 16
+    box_radius: [16, 16, 0, 0]
+    box_position: "header"
+    lines: 1
+    
 <DrawerClickableItemColor@DrawerClickableItem>
     text_right_color: app.theme_cls.primary_color
     text_color:       app.theme_cls.primary_color
@@ -516,84 +521,95 @@ MDScreen:
                     ScrollView:
                         do_scroll_x: False
                         GridLayout:
-                            cols: 3
+                            cols: 2
                             row_default_height: (self.width - self.cols*self.spacing[0])/self.cols
                             row_force_default: True
                             size_hint_y: None
                             height: self.minimum_height
                             padding: dp(4), dp(4)
                             spacing: dp(4)
-                            MDSmartTile:
+                            MDSmartTileForGrid:
                                 mipmap: True
                                 source: 'https://images.unsplash.com/photo-1683057479776-d57c5f7123a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80'
                                 text: "Rose"
                                 on_release:
                                     app.pressPicture(self)
+                                OneLineListItem:
+                                    font_style: 'Caption'
+                                    text: "[color=#ffffff][b]I love roses[/b][/color]"
+                                    pos_hint: {"center_y": .5}
+                                    _no_ripple_effect: True    
+                                MDIconButton:
+                                    icon: "heart-outline"
+                                    theme_icon_color: "Custom"
+                                    icon_color: 1, 0, 0, 1
+                                    pos_hint: {"center_y": .5}
+                                    on_release: self.icon = "heart" if self.icon == "heart-outline" else "heart-outline"    
 
-                            MDSmartTile:
+                            MDSmartTileForGrid:
                                 mipmap: True
                                 source: 'https://images.unsplash.com/photo-1683533949121-272be1c73171?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80'
                                 text: "Bratislava"
                                 on_release:
                                     app.pressPicture(self)
 
-                            MDSmartTile:
+                            MDSmartTileForGrid:
                                 mipmap: True
                                 source: 'https://images.unsplash.com/photo-1683055742865-ed0aff8827fc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80'
                                 text: "Pskov"
                                 on_release:
                                     app.pressPicture(self)
 
-                            MDSmartTile:
+                            MDSmartTileForGrid:
                                 mipmap: True
                                 source: 'https://images.unsplash.com/photo-1683055741535-731f0b3eba8d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80'
                                 text: "Spring"
                                 on_release:
                                     app.pressPicture(self)
 
-                            MDSmartTile:
+                            MDSmartTileForGrid:
                                 mipmap: True
                                 source: 'https://images.unsplash.com/photo-1657544919231-00830d544b9a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80'
                                 text: "Cheetah"
                                 on_release:
                                     app.pressPicture(self)
 
-                            MDSmartTile:
+                            MDSmartTileForGrid:
                                 mipmap: True
                                 source: 'https://images.unsplash.com/photo-1657543811773-061dda5bb8ee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80'
                                 text: "Vienna"
                                 on_release:
                                     app.pressPicture(self)
 
-                            MDSmartTile:
+                            MDSmartTileForGrid:
                                 mipmap: True
                                 source: 'https://images.unsplash.com/photo-1657541115394-ca1c6ee58fbf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80'
                                 text: "Riga"
                                 on_release:
                                     app.pressPicture(self)
 
-                            MDSmartTile:
+                            MDSmartTileForGrid:
                                 mipmap: True
                                 source: 'https://images.unsplash.com/photo-1657004681542-ac1cd715b760?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80'
                                 text: "Argun"
                                 on_release:
                                     app.pressPicture(self)
 
-                            MDSmartTile:
+                            MDSmartTileForGrid:
                                 mipmap: True
                                 source: 'https://images.unsplash.com/photo-1657004681284-4dd4bcc58ffd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80'
                                 text: "Essentuki"
                                 on_release:
                                     app.pressPicture(self)
 
-                            MDSmartTile:
+                            MDSmartTileForGrid:
                                 mipmap: True
                                 source: 'https://images.unsplash.com/photo-1654192615588-daf256bdfcd4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80'
                                 text: "Winter"
                                 on_release:
                                     app.pressPicture(self)
 
-                            MDSmartTile:
+                            MDSmartTileForGrid:
                                 mipmap: True
                                 source: 'https://images.unsplash.com/photo-1657004681330-9b9846ebeb1c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80'
                                 text: "Snail"
@@ -1413,7 +1429,7 @@ MDScreen:
                 name: 'expansionpanel'
                 id: expansionpanel               
                 MDTopAppBar:
-                    title: "Accordion. Press on lines"
+                    title: "Accordion. Click on the lines"
                     elevation: 4
                     pos_hint: {"top": 1}
                     size_hint_y: 0.11
@@ -2356,15 +2372,16 @@ class DemoKivyMD(MDApp):
         # go to start screen
         self.root.ids.manager.current = "splash"
 
-    def on_panel_open(self, *args):
+    # def on_panel_open(self, *args):
+    def on_panel_open(self, instance_panel):
         # Alas, changing the icon doesn't work.... why?
-        args[0].icon = 'arrow-expand-up'
-        toast("Open  " + str(args[0].content.id))
+        instance_panel.icon = 'arrow-expand-up'
+        toast("Open  " + str(instance_panel.content.id))
 
-    def on_panel_close(self, *args):
+    def on_panel_close(self, instance_panel):
         # Alas, changing the icon doesn't work.... why?
-        args[0].icon = 'arrow-expand-down'
-        toast("Close " + str(args[0].content.id))
+        instance_panel.icon = 'arrow-expand-down'
+        toast("Close " + str(instance_panel.content.id))
 
     def on_touch_up(self, *args):
         toast("Call to: " + args[0].ids.infopanel.text)
