@@ -142,6 +142,20 @@ main_widget_kv = """
     on_press: root.backdrop.open(-Window.height / 2)
     pos_hint: {"top": 1}
     _no_ripple_effect: True
+    FloatLayout:
+        orientation: "vertical"
+        pos_size_y: 1
+        pos_hint: {"top": 0}
+        MDLabel:
+            halign: "center"
+            pos_size_y : 0.2
+            pos_hint: {"top": 0.6}
+            text : "There could be \\n something useful here"
+        MDLabel:
+            halign: "center"
+            pos_size_y : 0.2
+            pos_hint: {"top": 0.0}
+            text : "Or here"
 
 <MyBackdropBackLayer@Image>
     size_hint: .8, .8
