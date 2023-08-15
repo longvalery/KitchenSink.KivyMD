@@ -4,6 +4,7 @@ from datetime import datetime, date, timedelta
 from random import randrange
 from typing import Union
 import os
+import re
 
 import kivy
 from kivy.clock import Clock
@@ -1106,11 +1107,14 @@ MDScreen:
                                 on_text_validate: app.validateInput(self)
                             MDTextField:
                                 id: text_field_error
+                                name: "text_field_error"
                                 hint_text: "Helper text on error (Hit Enter with two characters here)"
                                 helper_text: "Two is my least favorite number"
                                 helper_text_mode: "on_error"
                                 on_text_validate: app.validateInput(self)
                             MDTextField:
+                                id: text_field_error_max_text_length10
+                                name: "text_field_error_max_text_length10"
                                 hint_text: "Max text length = 10"
                                 max_text_length: 10
                                 on_text_validate: app.validateInput(self)
@@ -1124,7 +1128,6 @@ MDScreen:
                                 hint_text: "Multi-line text"
                                 helper_text: "Messages are also supported here"
                                 helper_text_mode: "persistent"
-                                on_text_validate: app.validateInput(self)
                             MDTextField:
                                 hint_text: "color_mode = \'accent\'"
                                 color_mode: 'accent'
@@ -1139,6 +1142,76 @@ MDScreen:
                             MDTextField:
                                 hint_text: "disabled = True"
                                 disabled: True
+                            MDTextField:
+                                id: MDTextFieldDateWithoutLimits
+                                name: "MDTextFieldDateWithoutLimits"
+                                hint_text: "Date dd/mm/yyyy without limits"
+                                helper_text: "Enter a valid dd/mm/yyyy date"
+                                validator: "date"
+                                date_format: "dd/mm/yyyy"
+                                on_text_validate: app.validateInputDate(self)
+                            MDTextField:
+                                id: MDTextFieldDateWithoutLimitsYear
+                                name: 'MDTextFieldDateWithoutLimitsYear'
+                                hint_text: "Date yyyy/mm/dd without limits"
+                                helper_text: "Enter a valid yyyy/mm/dd date"
+                                validator: "date"
+                                date_format: "yyyy/mm/dd"
+                                on_text_validate: app.validateInputDate(self)
+                            MDTextField:
+                                id:MDTextFieldDateInterval
+                                name: 'MDTextFieldDateInterval'
+                                hint_text: "Date dd/mm/yyyy in [01/01/1900, 01/01/2100] interval"
+                                helper_text: "Enter a valid dd/mm/yyyy date"
+                                validator: "date"
+                                date_format: "dd/mm/yyyy"
+                                date_interval: "01/01/1900", "01/01/2100"
+                                on_text_validate: app.validateInputDate(self)
+                            MDTextField:
+                                id: MDTextFieldDateIntervalUpNone
+                                name: 'MDTextFieldDateIntervalUpNone'
+                                hint_text: "Date dd/mm/yyyy in [01/01/1900, None] interval"
+                                helper_text: "Enter a valid dd/mm/yyyy date"
+                                validator: "date"
+                                date_format: "dd/mm/yyyy"
+                                date_interval: "01/01/1900", None
+                                on_text_validate: app.validateInputDate(self)
+                            MDTextField:
+                                id: MDTextFieldDateIntervalDownNone
+                                name: 'MDTextFieldDateIntervalDownNone'
+                                hint_text: "Date dd/mm/yyyy in [None, 01/01/2100] interval"
+                                helper_text: "Enter a valid dd/mm/yyyy date"
+                                validator: "date"
+                                date_format: "dd/mm/yyyy"
+                                date_interval: None, "01/01/2100"
+                                on_text_validate: app.validateInputDate(self)
+                                
+                            BoxLayout:
+                                id: BoxLayoutPassword
+                                size_hint_y: None
+                                height: text_field_password.height    
+                                MDTextField:
+                                    id: text_field_password
+                                    hint_text: "Input password and press [Enter], please"
+                                    text: ""
+                                    helper_text: 'It must consists of low & up leters, numbers & spec.chars'
+#                                    helper_text: 'The password must consists of numbers,' + chr(13)+chr(10) + 'uppercase and lowercase letters' + chr(13)+chr(10) + 'and special characters'
+                                    password: True
+                                    required: True
+                                    helper_text_mode: "on_error"
+                                    icon_left: "key-variant"
+                                    on_text_validate: app.validateInputPasswords(self)
+    
+                                MDIconButton:
+                                    icon: "eye-off"
+#                                    pos_hint: {"top": 1}
+#                                    pos_hint_y: {"center_y": .5}
+#                                    pos_hint_x: None
+                                    pos: text_field_password.width - self.width + dp(8), 0
+                                    theme_text_color: "Hint"
+                                    on_release:
+                                        self.icon = "eye" if self.icon == "eye-off" else "eye-off"
+                                        text_field_password.password = False if text_field_password.password is True else True       
 
             Screen:
                 name: 'theming'
@@ -2104,8 +2177,65 @@ class DemoKivyMD(MDApp):
         toast("Changed animation to " + transition_name)
 
     def validateInput(self, input_box):
+        if input_box.name == "text_field_error":
+            input_box.error = False
+            if (len(input_box.text) == 2):
+                input_box.error = True
+                return
+        if input_box.name == "text_field_error_max_text_length10":
+            input_box.error = False
+            if (len(input_box.text) > 10):
+                input_box.error = True
+                input_box.text = input_box.text[0:10]
+
+
         toast("You input this line :'" + input_box.text + "'\n" \
               + "Object:" + input_box.hint_text)
+
+    def validateInputPasswords(self, input_box):
+        regex_A_Z = "[A-Z]"
+        regex_a_z = "[a-z]"
+        regex_0_9 = "[0-9]"
+        regex_special = "[!-/:-@[-`{-~]"
+        self.root.ids.text_field_password.error = True
+        pattern = re.compile(regex_A_Z)
+        if (pattern.search(input_box.text) is None):
+            return
+        pattern = re.compile(regex_a_z)
+        if (pattern.search(input_box.text) is None):
+            return
+        pattern = re.compile(regex_0_9)
+        if (pattern.search(input_box.text) is None):
+            return
+        pattern = re.compile(regex_special)
+        if (pattern.search(input_box.text) is None):
+            return
+        self.root.ids.text_field_password.error = False
+        toast("You input this line :'" + input_box.text + "'\n" \
+              + "Object:" + input_box.hint_text)
+
+    def validateInputDate(self, input_box):
+        # input_box.error = True
+        # date_pattern = '%Y/%m/%d'
+        # if (input_box.date_format == "dd/mm/yyyy"):
+        #     date_pattern = '%d/%m/%Y'
+        # try:
+        #     date_object = datetime.strptime(input_box.text, date_pattern)
+        # except ValueError as ve:
+        #     return
+        # if not ("WithoutLimits" in input_box.name):
+        #     if not input_box.date_interval[0] is None:
+        #         date_low_bound = input_box.date_interval[0]
+        #         if date_object.date() < date_low_bound:
+        #             return
+        #     if not input_box.date_interval[1] is None:
+        #         date_high_bound = input_box.date_interval[1]
+        #         if date_object.date() > date_high_bound:
+        #             return
+        # input_box.error = False
+        if (not input_box.error):
+            toast("You input this line :'" + input_box.text + "'\n" \
+                + "Object:" + input_box.hint_text)
 
     def twiceTap(self, input_box):
         toast("Pressed twice !!!")
@@ -2300,7 +2430,9 @@ class DemoKivyMD(MDApp):
         toast("Changed widget style to " + style)
 
     def quit(self):
-        self.root_window.close()
+        # self.root_window.close()
+        exit(0)
+
 
 
 if __name__ == '__main__':
