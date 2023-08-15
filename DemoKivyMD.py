@@ -29,7 +29,7 @@ from kivymd.uix.pickers import MDColorPicker, MDDatePicker, MDTimePicker
 from kivymd.uix.snackbar import Snackbar
 from kivymd.uix.tab import MDTabsBase
 from kivymd.uix.textfield import MDTextField
-from kivymd.uix.list import ILeftBody, ILeftBodyTouch, IRightBodyTouch, BaseListItem
+from kivymd.uix.list import ILeftBody, ILeftBodyTouch, IRightBodyTouch, BaseListItem, OneLineListItem
 from kivymd.uix.button import MDIconButton
 from kivymd.uix.selectioncontrol import MDCheckbox
 from kivymd.uix.transition import MDFadeSlideTransition, MDSlideTransition, MDSwapTransition
@@ -97,6 +97,10 @@ main_widget_kv = """
             mipmap: True
             pos_hint: {'center_x': 0.5, 'center_y': 0.5}
             source: ''
+            on_release: toast.toast("You can't go out like that")
+            OneLineListItem:
+                id:OneLineListItemCaption
+                font_style: 'Caption'
         MDFloatingActionButton:
             icon:               'close-box-outline'
             opposite_colors:    True
@@ -2181,6 +2185,7 @@ class DemoKivyMD(MDApp):
     def pressPicture(self, picture):
         popup = MyPopup()
         popup.ids.popupImage.source = picture.source
+        popup.ids.OneLineListItemCaption.text = "[color=#ffffff][b]" + picture.text + "[/b][/color]"
         popup.open()
         toast(picture.text)
 
