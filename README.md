@@ -54,10 +54,11 @@ then
 pip install pyinstaller
 
 ## Build application
+call .\venv\Scrips\activate.bat
+
 pyinstaller --clean -y -n "DemoKivyMD" --onefile DemoKivyMD.py
 
 ## Run application
-call .\venv\Scrips\activate.bat
 
 .\dist\DemoKivyMD.exe 
 
