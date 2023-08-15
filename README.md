@@ -53,10 +53,14 @@ then
 
 pip install pyinstaller
 
-## Build application
+## Build application and copy images
 call .\venv\Scrips\activate.bat
 
 pyinstaller --clean -y -n "DemoKivyMD" --onefile DemoKivyMD.py
+
+mkdir .\dist\assets
+
+copy .\assets\*.png .\dist\assets\*.*
 
 ## Run application
 
