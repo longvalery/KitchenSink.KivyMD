@@ -33,6 +33,16 @@ from kivymd.uix.list import ILeftBody, ILeftBodyTouch, IRightBodyTouch, BaseList
 from kivymd.uix.button import MDIconButton
 from kivymd.uix.selectioncontrol import MDCheckbox
 from kivymd.uix.transition import MDFadeSlideTransition, MDSlideTransition, MDSwapTransition
+## The following lines are needed for Pyinstaller. Do not delete them if you need to create an exe-file.
+from kivymd.uix.navigationdrawer import MDNavigationLayout
+from kivymd.uix.bottomnavigation import MDBottomNavigation
+from kivymd.uix.imagelist import MDSmartTile
+from kivymd.uix.spinner import MDSpinner
+from kivymd.uix.slider import MDSlider
+from kivymd.uix.progressbar import MDProgressBar
+from kivymd.uix.backdrop import MDBackdrop
+from kivymd.uix.banner import MDBanner
+##
 
 kivy.require("2.2.1")
 # I'll try disabling the log messages
@@ -44,7 +54,6 @@ Window.size = (400, 600)
 main_widget_kv = """
 ## This export is necessary because some messages will be send from this Kivy file  
 #:import toast kivymd.toast 
-
 
 <MDSmartTileForGrid@MDSmartTile>
     radius: 16

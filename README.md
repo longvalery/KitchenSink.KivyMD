@@ -44,3 +44,20 @@ python DemoKivyMD.py
 
 ## Enjoy  
 
+
+# Addition. Build exe-file for Windows
+## Install pyinstaller
+call .\venv\Scrips\activate.bat
+
+then
+
+pip install pyinstaller
+
+## Build application
+pyinstaller --clean -y -n "DemoKivyMD" --onefile DemoKivyMD.py
+
+## Run application
+call .\venv\Scrips\activate.bat
+
+.\dist\DemoKivyMD.exe 
+
