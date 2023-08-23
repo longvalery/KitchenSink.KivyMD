@@ -28,8 +28,11 @@ For Linux:   source ./venv/bin/activate
 
 ## Step 5. Install all dependent packages
 
+For Windows: 
 pip install -r requirements.txt 
 
+For Linux:
+pip install -r linux.requirements.txt
 
 # Run
 ## For the beginning
@@ -40,9 +43,22 @@ For Linux:   source ./venv/bin/activate
 
 ## Then
 
-python DemoKivyMD.py
+python main.py
 
-## Enjoy  
+## Enjoy 
+
+Hot keys are
+
+Shift+F11 - change Orientation (standard Kivy)
+
+Shift+F8 - change Theme
+
+Shift+F7 - change Language
+
+Shift+F6 - change Animation
+
+Shift+F5 - change primary color of the application 
+
 
 
 # Addition. Build exe-file for Windows
@@ -56,7 +72,7 @@ pip install pyinstaller
 ## Build application and copy images
 call .\venv\Scrips\activate.bat
 
-pyinstaller --clean -y -n "DemoKivyMD" --onefile DemoKivyMD.py
+pyinstaller --clean -y -n "DemoKivyMD" --onefile main.py
 
 mkdir .\dist\assets
 
