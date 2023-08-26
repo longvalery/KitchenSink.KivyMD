@@ -82,3 +82,27 @@ copy .\assets\*.png .\dist\assets\*.*
 
 .\dist\DemoKivyMD.exe 
 
+# Addition. Build and install apk-file for Android
+## Install Buildozer. Only Linux
+call .\venv\Scrips\activate.bat
+
+then
+
+pip install -r android.requirements.txt
+
+## Build apk-file 
+
+./buildozerBuild.bash 
+
+##  apk-file
+
+./buildozerDeploy.bash 
+
+The log file will be written to the ./out.txt file
+
+
+
+
+
+
+

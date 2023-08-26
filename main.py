@@ -6,6 +6,7 @@ from random import randrange
 from typing import Union
 import os
 import re
+import sys
 
 import kivy
 from kivy.clock import Clock
@@ -51,13 +52,17 @@ from kivymd.uix.banner import MDBanner
 
 ##
 
-kivy.require("2.2.1")
 # I'll try disabling the log messages
 os.environ["KIVY_NO_CONSOLELOG"] = "1"
 os.environ["KIVY_NO_FILELOG"] = "1"
 
-# set size of application
-Window.size = (400, 600)
+
+if not hasattr(sys, 'getandroidapilevel'):
+    # set size of application
+    Window.size = (400, 600)
+# The "Buildozer" is downloading more old version Kivy
+    kivy.require("2.2.1")
+
 
 define_classes = """
 <MDSmartTileForGrid@MDSmartTile>
